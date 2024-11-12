@@ -7,8 +7,8 @@ const readDir = util.promisify(readdir)
 const s3 = new S3Client({
     region :process.env.AWSREGION,
     credentials : {
-        accessKeyId : process.env.AWSACCESSKEYID as string,
-        secretAccessKey :process.env.AWSSECRETACCESSKEY as string
+        accessKeyId : process.env.AWSACCESSKEYID!,
+        secretAccessKey :process.env.AWSSECRETACCESSKEY!
     }
 })
 
@@ -16,7 +16,7 @@ async function uploadFile(key:string,path:string) {
     const upload = new Upload({
         client : s3,
         params : {
-            Bucket : process.env.BUCKETNAME as string,
+            Bucket : process.env.BUCKETNAME!,
             Key : key,
             Body : createReadStream(path)
         }
