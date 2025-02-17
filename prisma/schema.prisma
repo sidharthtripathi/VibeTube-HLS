@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearchPostgres"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+  id String @id @default(uuid())
+  username String @unique
+  password String
+  avatar String?
+  converImage String? @default("https://images.unsplash.com/photo-1497005367839-6e852de72767?q=80&w=2067&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+  videos Video[]
+  videosPublishedCount Int @default(0)
+  subscribersCount Int @default(0)
+  subscribedTo User[] @relation("subscription")
+  subscribers User[] @relation("subscription")
+
+  playlists Playlist[]
+}
+
+model Video{
+  id String @id @default(uuid())
+  title String
+  views Int @default(0)
+  duration Int @default(0)
+  isPublished Boolean @default(false)
+  description String
+  rawVideoUrl String
+  hlsVideoUrl String
+  thumbnailUrl String
+  uploader User @relation(fields: [userid],references: [id], onUpdate: Cascade, onDelete: Cascade)
+  userid String
+  playlist Playlist[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
+
+model Playlist{
+  id String @id @default(uuid())
+  name String
+  creator User @relation(fields: [creatorId],references: [id])
+  creatorId String
+
+  videos Video[]
+}
