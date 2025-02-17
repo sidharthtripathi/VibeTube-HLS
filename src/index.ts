@@ -18,7 +18,7 @@ async function  main() {
     channel.consume("rawVideos",async(msg)=>{
         
         try {
-            let data = (Buffer.from(msg?.content!)).toString()
+            const data = msg?.content.toString() as string
             let {rawVideoUrl,id} = JSON.parse(data) as {rawVideoUrl : string,id:string}
             // create download folder if it does not exist
             if(!existsSync(path.join(__dirname,"output"))){
