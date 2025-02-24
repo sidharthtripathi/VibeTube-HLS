@@ -3,7 +3,9 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "start": "bun run src/index.ts"
+    "start": "bun run prisma:generate && bun run src/index.ts",
+    "prisma:generate" : "bunx prisma generate",
+    "build:docker" : "docker build -t hls-converter:latest ."
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.637.0",

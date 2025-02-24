@@ -1,6 +1,6 @@
 FROM oven/bun:latest
-RUN apt update -y
-RUN apt install ffmpeg -y
+RUN apt-get update
+RUN apt-get install ffmpeg -y
 WORKDIR /app
 COPY bun.lockb .
 COPY package*.json .

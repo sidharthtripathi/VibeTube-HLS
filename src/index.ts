@@ -33,23 +33,27 @@ async function  main() {
             // download video
             const writeStream = fs.createWriteStream(path.join(__dirname,id))
             writeStream.on("finish",async ()=>{
-                // create the HLS format
+                
                 const duration = await getVideoDurationInSeconds(path.join(__dirname,id))
+
+                // create the HLS format
                 console.log("creating HLS")
                 await createHLS(path.join(__dirname,id),path.join(__dirname,"output",id))
                 // uploading to s3
                 console.log("uploadig hls")
                 await uploadFolder(path.join(__dirname,"output",id),id)
-                // delete the files
+                
                 await prisma.video.update({
                     where : {id},
                     data : {duration,isPublished : true}
                 })
+
+                // delete the files
                 rmSync(path.join(__dirname,"output",id),{recursive : true})
                 rmSync(path.join(__dirname,id))
                 
             })
-            writeStream.on("error",(err:any)=>{console.log(err)})
+            writeStream.on("error",(err:any)=>{console.error(err)})
             console.log("downloading video")
             const res = await axios.get(rawVideoUrl,{responseType : "stream"})
             res.data.pipe(writeStream)
