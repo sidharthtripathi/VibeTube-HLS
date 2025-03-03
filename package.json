@@ -3,6 +3,8 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
+    "dev" :"bun run --watch src/index.ts ",
+    "db:init" :"bunx prisma db push",
     "start": "bun run prisma:generate && bun run src/index.ts",
     "prisma:generate" : "bunx prisma generate",
     "build:docker" : "docker build -t hls-converter:latest ."
