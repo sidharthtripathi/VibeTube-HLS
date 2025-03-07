@@ -9,7 +9,7 @@ The HLS Transcoder is responsible for converting video files into HLS streams.
 ## Prerequisites
 
 * **Git:** Ensure Git is installed on your system.
-* **Bun:** Bun is required for dependency management and running scripts.
+* **Node:** NOde is required for dependency management and running scripts.
 * **FFmpeg:** FFmpeg must be installed and accessible in your system's PATH.
 * **PostgreSQL:** A running instance of PostgreSQL is required.
 * **Docker (Optional):** Docker is required if you intend to build the Docker image.
@@ -31,7 +31,7 @@ The HLS Transcoder is responsible for converting video files into HLS streams.
 3.  **Install Dependencies:**
 
     ```bash
-    bun install
+    npm install
     ```
 
 4.  **Configure Environment Variables:**
@@ -45,21 +45,21 @@ The HLS Transcoder is responsible for converting video files into HLS streams.
     * Run the database initialization script:
 
         ```bash
-        bun run init:db
+        npm run init:db
         ```
 
 6.  **Start the Development Server:**
 
     ```bash
-    bun run dev
+    npm run dev
     ```
 
     This command starts the HLS Transcoder in development mode.
 
 7.  **Build Docker Image (Optional):**
 
-    * If you intend to use Docker Compose or deploy the transcoder in a Docker container, you can build the Docker image using Bun:
+    * If you intend to use Docker Compose or deploy the transcoder in a Docker container, you can build the Docker image.:
 
         ```bash
-        bun run build:docker
+        npm run build:docker
         ```
