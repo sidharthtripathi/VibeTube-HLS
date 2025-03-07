@@ -1,9 +1,9 @@
-FROM oven/bun:latest
+FROM node:slim
 RUN apt-get update
 RUN apt-get install ffmpeg -y
 WORKDIR /app
-COPY bun.lockb .
 COPY package*.json .
-RUN bun install
+RUN npm install
 COPY . .
-CMD [ "bun" ,"start" ]
+RUN npm run build
+CMD [ "npm" ,"start" ]

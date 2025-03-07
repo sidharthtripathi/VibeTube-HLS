@@ -1,12 +1,12 @@
 {
   "name": "hls",
-  "module": "index.ts",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
-    "dev" :"bun run --watch src/index.ts ",
-    "db:init" :"bunx prisma db push",
-    "start": "bun run prisma:generate && bun run src/index.ts",
-    "prisma:generate" : "bunx prisma generate",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec ts-node src/index.ts",
+    "db:init" :"npx prisma db push",
+    "build" :"npx tsc",
+    "start": "npm run prisma:generate && node build",
+    "prisma:generate" : "npx prisma generate",
     "build:docker" : "docker build -t hls-converter:latest ."
   },
   "dependencies": {
